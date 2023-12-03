@@ -1,4 +1,4 @@
-install
+# install
 
 conda create -n seg2lining python=3.8
 conda activate seg2lining
@@ -9,7 +9,7 @@ pip install open3d
 pip install thop
 
 
-implement
+# implement
 
 sintr -t 1:0:0 --exclusive -A SHEIL-SL3-GPU -p ampere
 
