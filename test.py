@@ -95,6 +95,8 @@ class Tester:
                 
                 end_points = self.net(batch_data)
                 
+                
+                
                 loss, end_points = compute_loss(end_points)
                 end_points = iou_calc.add_data(end_points)
                 
