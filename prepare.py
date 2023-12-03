@@ -51,6 +51,8 @@ def prepare(voxel_size):
     stations = {}
     for file in files:
         station = file.rsplit('-', 1)[0]
+        if station not in cfg.training_stations and station not in cfg.test_stations:
+            continue
         if station not in stations.keys():
             stations[station] = []
         stations[station].append(file)
