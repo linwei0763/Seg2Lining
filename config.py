@@ -27,14 +27,14 @@ class Config:
     
     axis_k_n = 16
     
-    # rfa = 'lin_v1'
-    # rfa_param = 1
-    # rfa_pooling = 'max'
-    # rfa_pooling = 'mean'
-    
-    rfa = 'lin_v2'
+    rfa = 'lin_v1'
     rfa_param = 1
     rfa_pooling = 'max'
+    # rfa_pooling = 'mean'
+    
+    # rfa = 'lin_v2'
+    # rfa_param = 1
+    # rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
     '''
@@ -128,8 +128,8 @@ class Config:
     # enc = 'se'
     
     if enc == 'ohe':
-        flag_ohe2se = False
-        # flag_ohe2se = True
+        # flag_ohe2se = False
+        flag_ohe2se = True
         if flag_ohe2se:
             weight_ohe2se = 1
 
