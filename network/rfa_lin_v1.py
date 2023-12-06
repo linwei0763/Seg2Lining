@@ -23,8 +23,8 @@ class RFA(nn.Module):
         f_xyz = f_xyz.permute((0, 3, 1, 2))
         f_xyz = self.mlp1(f_xyz)
         
-        f_neighbours = self.mlp2(feature)
-        f_neighbours = self.gather_neighbour(f_neighbours.squeeze(-1).permute((0, 2, 1)), neigh_idx)
+        f = self.mlp2(feature)
+        f_neighbours = self.gather_neighbour(f.squeeze(-1).permute((0, 2, 1)), neigh_idx)
         f_neighbours = f_neighbours.permute((0, 3, 1, 2))
         
         f_concat = torch.cat([f_neighbours, f_xyz], dim=1)
@@ -35,7 +35,7 @@ class RFA(nn.Module):
         elif self.pooling == 'mean':
             f_concat = torch.mean(f_concat, dim=3, keepdim=True)
         
-        f = torch.cat([f_concat, feature], dim=1)
+        f = torch.cat([f_concat, f], dim=1)
         f = self.mlp4(f)
         
         return f
