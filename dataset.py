@@ -16,7 +16,7 @@ def compute_dis2axis(p, xy):
     return d2
 
 
-def project2aixs(xy, a, b, c):
+def project2axis(xy, a, b, c):
     
     x0, y0 = xy[:, 0], xy[:, 1]
     
@@ -68,7 +68,7 @@ class Seg2Tunnel(Dataset):
         self.possibility = {}
         
         if cfg.rfa:
-            self.aixs_ds = {}
+            self.axis_ds = {}
             pini = np.asarray([1, 1, 0], dtype=float)
         
         for station in stations:
@@ -77,8 +77,8 @@ class Seg2Tunnel(Dataset):
             if cfg.rfa:
                 plsq = optimize.leastsq(compute_dis2axis, pini, args=(raw_pc[:, 0:2]))
                 a, b, c = plsq[0][0], plsq[0][1], plsq[0][2]
-                axis_d = project2aixs(raw_pc[:, 0:2], a, b, c)
-                self.aixs_ds[station] = axis_d
+                axis_d = project2axis(raw_pc[:, 0:2], a, b, c)
+                self.axis_ds[station] = axis_d
 
     def __len__(self):
         
@@ -95,7 +95,7 @@ class Seg2Tunnel(Dataset):
         if cfg.rfa:
             new_raw_pc = np.zeros((raw_pc.shape[0], raw_pc.shape[1] + 1))
             new_raw_pc[:, 0:cfg.num_features] = raw_pc[:, 0:cfg.num_features]
-            new_raw_pc[:, cfg.num_features] = self.aixs_ds[station][:]
+            new_raw_pc[:, cfg.num_features] = self.axis_ds[station][:]
             new_raw_pc[:, -1] = raw_pc[:, -1]
             raw_pc = new_raw_pc
         
