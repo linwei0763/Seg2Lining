@@ -7,17 +7,6 @@ from sklearn.neighbors import KDTree
 from config import Config as cfg
 
 
-def norm_intensity(intensity):
-    
-    bottom, up = np.percentile(intensity, 1), np.percentile(intensity, 99)
-    intensity[intensity < bottom] = bottom
-    intensity[intensity > up] = up
-    intensity -= bottom
-    intensity = intensity / (up - bottom)
-    
-    return intensity
-
-
 def grid_sample(points, voxel_size):
     
     features = points[:, 3:]
@@ -40,6 +29,17 @@ def grid_sample(points, voxel_size):
     sub_points = np.hstack((np.asarray(sub_points), np.asarray(sub_features)))
 
     return sub_points
+
+
+def norm_intensity(intensity):
+    
+    bottom, up = np.percentile(intensity, 1), np.percentile(intensity, 99)
+    intensity[intensity < bottom] = bottom
+    intensity[intensity > up] = up
+    intensity -= bottom
+    intensity = intensity / (up - bottom)
+    
+    return intensity
 
 
 def prepare(voxel_size):
