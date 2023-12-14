@@ -46,7 +46,6 @@ class Seg2Tunnel(Dataset):
         self.list_dataset = []
         self.path = cfg.data_path + '_' + str(cfg.voxel_size)
         
-        
         if self.mode == 'training':
             stations = cfg.training_stations
             for i in range(cfg.training_num):
