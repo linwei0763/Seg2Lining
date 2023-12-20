@@ -7,10 +7,10 @@ class Config:
     '''
     --------LFA--------
     '''
-    lfa = 'hu2019'
+    # lfa = 'hu2019'
     # lfa = 'fan2021'
     # lfa_param = 0.1
-    # lfa = 'zhao2021'
+    lfa = 'zhao2021'
     # lfa = 'jing2022'
     # lfa_param = 8
     # lfa = 'cheng2023'
@@ -23,9 +23,7 @@ class Config:
     '''
     --------RFA--------
     '''
-    # rfa = False
-    
-    axis_k_n = 16
+    rfa = False
     
     # rfa = 'lin_v1'
     # rfa_param = 1
@@ -37,14 +35,17 @@ class Config:
     # rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
-    rfa = 'lin_v3'
-    rfa_pooling = 'max'
+    # rfa = 'lin_v3'
+    # rfa_pooling = 'max'
     # rfa_pooling = 'mean'
+    
+    # axis_k_n = 16
     
     '''
     --------GFA-S--------
     '''
     gfa_s = False
+    
     # gfa_s = 'deng2021'
     # gfa_s_param = 20
     # gfa_s = 'li2022'
@@ -53,11 +54,11 @@ class Config:
     # gfa_s = 'ren2022'
     # gfa_s = 'zhao2023'
     
-    
     '''
     --------GFA-L--------
     '''
     gfa_l = False
+    
     # gfa_l = 'deng2021'
     # gfa_l_param = 512
     # gfa_l = 'li2022'
@@ -69,36 +70,36 @@ class Config:
     '''
     --------HPC--------
     '''
-    # num_points = 204800
+    num_points = 102400
     
-    # training_num = 3000
-    # validation_num = 600
-    # test_num = 1000
-    # demo_num = 1
-    
-    # training_batch_size = 8
-    # validation_batch_size = 1
-    # test_batch_size = 1
-    # demo_batch_size = 1
-    
-    # num_workers = 32
-    
-    '''
-    --------PC--------
-    '''
-    num_points = 10240
-    
-    training_num = 30
-    validation_num = 6
+    training_num = 3000
+    validation_num = 600
     test_num = 1000
     demo_num = 1
     
-    training_batch_size = 1
+    training_batch_size = 8
     validation_batch_size = 1
     test_batch_size = 1
     demo_batch_size = 1
     
-    num_workers = 16
+    num_workers = 32
+    
+    '''
+    --------PC--------
+    '''
+    # num_points = 102400
+    
+    # training_num = 30
+    # validation_num = 6
+    # test_num = 1000
+    # demo_num = 1
+    
+    # training_batch_size = 1
+    # validation_batch_size = 1
+    # test_batch_size = 1
+    # demo_batch_size = 1
+    
+    # num_workers = 16
     
     '''
     --------GENERAL--------
@@ -135,7 +136,7 @@ class Config:
         flag_ohe2se = False
         # flag_ohe2se = True
         if flag_ohe2se:
-            weight_ohe2se = 1
+            weight_ohe2se = 0.1
 
     if (enc == 'ohe' and flag_ohe2se) or (enc == 'se'):
         cus_enc = [[1, 0, 0],
