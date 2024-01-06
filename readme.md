@@ -32,4 +32,6 @@ python train.py
 
 python test.py
 
+python test_visualise.py
+
 python demo.py
