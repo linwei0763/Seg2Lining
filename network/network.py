@@ -101,6 +101,13 @@ class Network(nn.Module):
 
         features = features.unsqueeze(dim=3)
         
+        if self.config.flag_vis:
+            end_points['fm_LFA'] = []
+            end_points['fm_RFA'] = []
+            for i in range(len(self.config.vis_layers)):
+                end_points['fm_LFA'].append([])
+                end_points['fm_RFA'].append([])
+        
         '''
         --------Encoder--------
         '''
@@ -109,8 +116,18 @@ class Network(nn.Module):
 
             f_encoder_i = self.lfas[i](features, end_points['xyz'][i], end_points['neigh_idx'][i])
             
+            if self.config.flag_vis:
+                if i in self.config.vis_layers:
+                    for vis_channel in self.config.vis_channels:
+                        end_points['fm_LFA'][i].append(f_encoder_i[:, vis_channel, :, :])
+            
             if self.config.rfa:
                 f_encoder_i = self.rfas[i](f_encoder_i, end_points['xyz'][i], end_points['axis_neigh_idx'][i])
+            
+            if self.config.flag_vis:
+                if i in self.config.vis_layers:
+                    for vis_channel in self.config.vis_channels:
+                        end_points['fm_RFA'][i].append(f_encoder_i[:, vis_channel, :, :])
             
             f_sampled_i = self.random_sample(f_encoder_i, end_points['sub_idx'][i])
             features = f_sampled_i

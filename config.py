@@ -7,10 +7,10 @@ class Config:
     '''
     --------LFA--------
     '''
-    # lfa = 'hu2019'
+    lfa = 'hu2019'
     # lfa = 'fan2021'
     # lfa_param = 0.1
-    lfa = 'zhao2021'
+    # lfa = 'zhao2021'
     # lfa = 'jing2022'
     # lfa_param = 8
     # lfa = 'cheng2023'
@@ -23,11 +23,11 @@ class Config:
     '''
     --------RFA--------
     '''
-    rfa = False
+    # rfa = False
     
-    # rfa = 'lin_v1'
-    # rfa_param = 1
-    # rfa_pooling = 'max'
+    rfa = 'lin_v1'
+    rfa_param = 1
+    rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
     # rfa = 'lin_v2'
@@ -39,7 +39,8 @@ class Config:
     # rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
-    # axis_k_n = 16
+    if rfa:
+        axis_k_n = 16
     
     '''
     --------GFA-S--------
@@ -52,7 +53,7 @@ class Config:
     # gfa_s_param = 0.1
     # gfa_s = 'liu2022'
     # gfa_s = 'ren2022'
-    # gfa_s = 'zhao2023'
+    # gfa_s = 'liu2023'
     
     '''
     --------GFA-L--------
@@ -62,44 +63,44 @@ class Config:
     # gfa_l = 'deng2021'
     # gfa_l_param = 512
     # gfa_l = 'li2022'
-    # gfa_l_param = 0.1
+    # gfa_l_param = 0.01
     # gfa_l = 'liu2022'
     # gfa_l = 'ren2022'
-    # gfa_l = 'zhao2023'
+    # gfa_l = 'liu2023'
     
     '''
     --------HPC--------
     '''
-    num_points = 102400
+    # num_points = 204800
     
-    training_num = 3000
-    validation_num = 600
-    test_num = 1000
-    demo_num = 1
-    
-    training_batch_size = 8
-    validation_batch_size = 1
-    test_batch_size = 1
-    demo_batch_size = 1
-    
-    num_workers = 32
-    
-    '''
-    --------PC--------
-    '''
-    # num_points = 102400
-    
-    # training_num = 30
-    # validation_num = 6
+    # training_num = 3000
+    # validation_num = 600
     # test_num = 1000
     # demo_num = 1
     
-    # training_batch_size = 1
+    # training_batch_size = 8
     # validation_batch_size = 1
     # test_batch_size = 1
     # demo_batch_size = 1
     
-    # num_workers = 16
+    # num_workers = 32
+    
+    '''
+    --------PC--------
+    '''
+    num_points = 204800
+    
+    training_num = 30
+    validation_num = 6
+    test_num = 1000
+    demo_num = 1
+    
+    training_batch_size = 1
+    validation_batch_size = 1
+    test_batch_size = 1
+    demo_batch_size = 1
+    
+    num_workers = 16
     
     '''
     --------GENERAL--------
@@ -160,3 +161,16 @@ class Config:
         weight_cel = np.asarray([1, 1, 1, 1, 1, 1, 1])
         # weight_cel = np.asarray([1 / 0.304, 1 / 0.076, 1 / 0.206, 1 / 0.094, 1 / 0.030, 1 / 0.091, 1 / 0.199])
         # weight_cel = weight_cel / np.sum(weight_cel) * len(weight_cel)
+    
+    '''
+    --------Visualisation--------
+    '''
+    # flag_vis = False
+    flag_vis = True
+    vis_layers = [0]
+    vis_channels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    
+    
+    
+    
+    
