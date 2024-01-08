@@ -2,10 +2,75 @@ import math
 import numpy as np
 
 
+'''
+The Config has been adjusted to the best practice.
+'''
 class Config:
     
     '''
+    --------HPC--------
+    Keep this part uncommented when using HPC.
+    '''
+    num_points = 204800
+    
+    training_num = 3000
+    validation_num = 600
+    test_num = 1000
+    demo_num = 1
+    
+    training_batch_size = 8
+    validation_batch_size = 1
+    test_batch_size = 1
+    demo_batch_size = 1
+    
+    num_workers = 32
+    
+    '''
+    --------PC--------
+    Keep this part uncommented when using PC.
+    '''
+    # num_points = 204800
+    
+    # training_num = 30
+    # validation_num = 6
+    # test_num = 1000
+    # demo_num = 1
+    
+    # training_batch_size = 1
+    # validation_batch_size = 1
+    # test_batch_size = 1
+    # demo_batch_size = 1
+    
+    # num_workers = 16
+    
+    '''
+    --------GENERAL--------
+    '''
+    num_classes = 7
+    
+    num_features = 4
+    
+    data_path = '../Seg2Tunnel/seg2tunnel'
+    voxel_size = 0.04
+    training_stations = ['1-1', '1-2', '1-3', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-13', '1-14', '1-16', '1-17', '2-1', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-11', '2-12', '2-13']
+    validation_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
+    test_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
+    demo_stations = ['1-1']
+    
+    num_layers = 5
+    sub_sampling_ratio = [4, 4, 4, 4, 2]
+    d_out = [16, 64, 128, 256, 512]
+    
+    max_epoch = 100
+    learning_rate = 0.01
+
+    log_dir = 'log'
+    checkpoint_path = 'log/checkpoint.pt'
+    result_path = 'result'
+    
+    '''
     --------LFA--------
+    Uncomment the LFA you want to adopt and keep others commented. Make sure the parameters following the adopted LFA, if any, is also uncommented.
     '''
     lfa = 'hu2019'
     # lfa = 'fan2021'
@@ -45,87 +110,28 @@ class Config:
     '''
     --------GFA-S--------
     '''
-    gfa_s = False
+    # gfa_s = False
     
     # gfa_s = 'deng2021'
     # gfa_s_param = 20
     # gfa_s = 'li2022'
     # gfa_s_param = 0.1
-    # gfa_s = 'liu2022'
+    gfa_s = 'liu2022'
     # gfa_s = 'ren2022'
     # gfa_s = 'liu2023'
     
     '''
     --------GFA-L--------
     '''
-    gfa_l = False
+    # gfa_l = False
     
     # gfa_l = 'deng2021'
     # gfa_l_param = 512
-    # gfa_l = 'li2022'
-    # gfa_l_param = 0.01
+    gfa_l = 'li2022'
+    gfa_l_param = 0.01
     # gfa_l = 'liu2022'
     # gfa_l = 'ren2022'
     # gfa_l = 'liu2023'
-    
-    '''
-    --------HPC--------
-    '''
-    # num_points = 204800
-    
-    # training_num = 3000
-    # validation_num = 600
-    # test_num = 1000
-    # demo_num = 1
-    
-    # training_batch_size = 8
-    # validation_batch_size = 1
-    # test_batch_size = 1
-    # demo_batch_size = 1
-    
-    # num_workers = 32
-    
-    '''
-    --------PC--------
-    '''
-    num_points = 204800
-    
-    training_num = 30
-    validation_num = 6
-    test_num = 1000
-    demo_num = 1
-    
-    training_batch_size = 1
-    validation_batch_size = 1
-    test_batch_size = 1
-    demo_batch_size = 1
-    
-    num_workers = 16
-    
-    '''
-    --------GENERAL--------
-    '''
-    num_classes = 7
-    
-    num_features = 4
-    
-    data_path = '../Seg2Tunnel/seg2tunnel'
-    voxel_size = 0.04
-    training_stations = ['1-1', '1-2', '1-3', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-13', '1-14', '1-16', '1-17', '2-1', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-11', '2-12', '2-13']
-    validation_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
-    test_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
-    demo_stations = ['1-1']
-    
-    num_layers = 5
-    sub_sampling_ratio = [4, 4, 4, 4, 2]
-    d_out = [16, 64, 128, 256, 512]
-    
-    max_epoch = 100
-    learning_rate = 0.01
-
-    log_dir = 'log'
-    checkpoint_path = 'log/checkpoint.pt'
-    result_path = 'result'
     
     '''
     --------LABEL ENCODING--------
@@ -134,8 +140,8 @@ class Config:
     # enc = 'se'
     
     if enc == 'ohe':
-        flag_ohe2se = False
-        # flag_ohe2se = True
+        # flag_ohe2se = False
+        flag_ohe2se = True
         if flag_ohe2se:
             weight_ohe2se = 0.1
 
@@ -149,7 +155,7 @@ class Config:
                    [0, math.cos(6 * math.pi / 3), math.sin(6 * math.pi / 3)]]
     
     '''
-    --------LOSS--------
+    --------LOSS FUNCTION--------
     '''
     flag_ml = False
     # flag_ml = True
@@ -163,12 +169,14 @@ class Config:
         # weight_cel = weight_cel / np.sum(weight_cel) * len(weight_cel)
     
     '''
-    --------Visualisation--------
+    --------FEATURE MAP VISUALISATION--------
+    Activate this part only when running test_visualise.py.
     '''
-    # flag_vis = False
-    flag_vis = True
-    vis_layers = [0]
-    vis_channels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    flag_vis = False
+    # flag_vis = True
+    if flag_vis:
+        vis_layers = [0]
+        vis_channels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
     
     
     
