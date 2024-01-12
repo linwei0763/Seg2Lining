@@ -15,7 +15,7 @@ class GFA(nn.Module):
     def forward(self, feature):
         
         f1 = self.pam(feature)
-        f2 = self.pam(feature)
+        f2 = self.fam(feature)
 
         return f1 + f2
 

@@ -29,7 +29,7 @@ class Config:
     --------PC--------
     Keep this part uncommented when using PC.
     '''
-    # num_points = 204800
+    # num_points = 102400
     
     # training_num = 30
     # validation_num = 6
@@ -55,7 +55,7 @@ class Config:
     training_stations = ['1-1', '1-2', '1-3', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-13', '1-14', '1-16', '1-17', '2-1', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-11', '2-12', '2-13']
     validation_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
     test_stations = ['1-4', '1-12', '1-15', '2-2', '2-10', '2-14']
-    demo_stations = ['1-1']
+    demo_stations = ['1-4']
     
     num_layers = 5
     sub_sampling_ratio = [4, 4, 4, 4, 2]
@@ -73,14 +73,20 @@ class Config:
     Uncomment the LFA you want to adopt and keep others commented. Make sure the parameters following the adopted LFA, if any, is also uncommented.
     '''
     lfa = 'hu2019'
+    
     # lfa = 'fan2021'
     # lfa_param = 0.1
+    
     # lfa = 'zhao2021'
+    
     # lfa = 'jing2022'
     # lfa_param = 8
+    
     # lfa = 'cheng2023'
+    
     # lfa = 'zhan2023'
     # lfa_param = 1
+    
     # lfa = 'lin_v1'
     
     k_n = 16
@@ -88,7 +94,7 @@ class Config:
     '''
     --------RFA--------
     '''
-    # rfa = False
+    rfa = False
     
     rfa = 'lin_v1'
     rfa_param = 1
@@ -110,40 +116,48 @@ class Config:
     '''
     --------GFA-S--------
     '''
-    # gfa_s = False
+    gfa_s = False
     
     # gfa_s = 'deng2021'
     # gfa_s_param = 20
+    
     # gfa_s = 'li2022'
     # gfa_s_param = 0.1
+    
     gfa_s = 'liu2022'
+    
     # gfa_s = 'ren2022'
+    
     # gfa_s = 'liu2023'
     
     '''
     --------GFA-L--------
     '''
-    # gfa_l = False
+    gfa_l = False
     
     # gfa_l = 'deng2021'
     # gfa_l_param = 512
+    
     gfa_l = 'li2022'
     gfa_l_param = 0.01
+    
     # gfa_l = 'liu2022'
+    
     # gfa_l = 'ren2022'
+    
     # gfa_l = 'liu2023'
     
     '''
     --------LABEL ENCODING--------
     '''
     enc = 'ohe'
+    # flag_ohe2se = False
+    flag_ohe2se = True
+    
     # enc = 'se'
     
-    if enc == 'ohe':
-        # flag_ohe2se = False
-        flag_ohe2se = True
-        if flag_ohe2se:
-            weight_ohe2se = 0.1
+    if (enc == 'ohe' and flag_ohe2se):
+        weight_ohe2se = 0.1
 
     if (enc == 'ohe' and flag_ohe2se) or (enc == 'se'):
         cus_enc = [[1, 0, 0],
@@ -159,6 +173,7 @@ class Config:
     '''
     flag_ml = False
     # flag_ml = True
+    
     if flag_ml:
         weight_ml = [1, 1, 1, 1, 1]
         
