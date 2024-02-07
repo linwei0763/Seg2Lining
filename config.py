@@ -197,13 +197,9 @@ class Config:
             weight_ohe2se = 0.1
 
     if (enc == 'ohe' and flag_ohe2se) or (enc == 'se'):
-        cus_enc = [[1, 0, 0],
-                   [0, math.cos(1 * math.pi / 3), math.sin(1 * math.pi / 3)],
-                   [0, math.cos(2 * math.pi / 3), math.sin(2 * math.pi / 3)],
-                   [0, math.cos(3 * math.pi / 3), math.sin(3 * math.pi / 3)],
-                   [0, math.cos(4 * math.pi / 3), math.sin(4 * math.pi / 3)],
-                   [0, math.cos(5 * math.pi / 3), math.sin(5 * math.pi / 3)],
-                   [0, math.cos(6 * math.pi / 3), math.sin(6 * math.pi / 3)]]
+        cus_enc = [[1, 0, 0]]
+        for i in range(1, num_classes):
+            cus_enc.append([0, math.cos(i * math.pi / 3), math.sin(i * math.pi / 3)])
     
     '''
     --------LOSS FUNCTION--------
@@ -212,17 +208,13 @@ class Config:
     # flag_ml = True
     
     if flag_ml:
-        weight_ml = [1, 1, 1, 1, 1]
+        weight_ml = [1] * num_layers
         
     if enc == 'ohe':
         
         loss_func = 'cel'
         if loss_func == 'cel':
-            
-            '''best'''
-            weight_cel = np.asarray([1, 1, 1, 1, 1, 1, 1])
-            
-            # weight_cel = np.asarray([1 / 0.304, 1 / 0.076, 1 / 0.206, 1 / 0.094, 1 / 0.030, 1 / 0.091, 1 / 0.199]) / np.sum(np.asarray([1 / 0.304, 1 / 0.076, 1 / 0.206, 1 / 0.094, 1 / 0.030, 1 / 0.091, 1 / 0.199])) * len(np.asarray([1 / 0.304, 1 / 0.076, 1 / 0.206, 1 / 0.094, 1 / 0.030, 1 / 0.091, 1 / 0.199]))
+            weight_cel = np.ones(num_classes)
     
     '''
     --------FEATURE MAP VISUALISATION--------
