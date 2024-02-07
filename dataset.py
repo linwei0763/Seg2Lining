@@ -248,16 +248,15 @@ class Seg2Tunnel(Dataset):
         return inputs
 
 '''
---------temp--------
+--------VISUALISATION--------
 '''
-# def worker_init_fn(worker_id):
+def worker_init_fn(worker_id):
     
-#     np.random.seed(np.random.get_state()[1][0] + worker_id)    
+    np.random.seed(np.random.get_state()[1][0] + worker_id)    
 
     
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-#     training_set = Seg2Tunnel('training')
-#     for i in range(1):
-#         xyz = np.asarray(training_set[i]['features'].transpose(0, 1))
-#         np.savetxt(str(i) + '.txt', xyz, delimiter=' ')
+    dataset = Seg2Tunnel('test')
+    feature = np.asarray(dataset[4]['features'].transpose(0, 1))
+    np.savetxt('dataset.txt', feature, delimiter=' ')
