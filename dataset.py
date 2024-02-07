@@ -27,7 +27,7 @@ def project2axis(xy, a, b, c):
     return d
 
 
-def rotate(pc):
+def rotate_random_2d(pc):
     
     r = np.random.uniform(0, 360) / 180 * np.pi
     R = np.array([[np.cos(r), -np.sin(r), 0], [np.sin(r), np.cos(r), 0], [0, 0, 1]])
@@ -49,11 +49,11 @@ class Seg2Tunnel(Dataset):
         if self.mode == 'training':
             stations = cfg.training_stations
             for i in range(cfg.training_num):
-                self.list_dataset.append(stations[i%len(stations)])  
+                self.list_dataset.append(stations[i%len(stations)])
         if self.mode == 'validation':
             stations = cfg.validation_stations
             for i in range(cfg.validation_num):
-                self.list_dataset.append(stations[i%len(stations)])  
+                self.list_dataset.append(stations[i%len(stations)])
         if self.mode == 'test':
             stations = cfg.test_stations
             for station in stations:
@@ -62,7 +62,7 @@ class Seg2Tunnel(Dataset):
         if self.mode == 'demo':
             stations = cfg.demo_stations
             for i in range(cfg.demo_num):
-                self.list_dataset.append(stations[i%len(stations)])  
+                self.list_dataset.append(stations[i%len(stations)])
         
         self.possibility = {}
         
@@ -88,9 +88,6 @@ class Seg2Tunnel(Dataset):
         station = self.list_dataset[index]
         raw_pc = np.load(self.path + '/' + station + '.npy')
         
-        index_min = np.argmin(self.possibility[station])
-        centre = raw_pc[index_min, :]
-        
         if cfg.rfa:
             new_raw_pc = np.zeros((raw_pc.shape[0], raw_pc.shape[1] + 1))
             new_raw_pc[:, 0:cfg.num_features] = raw_pc[:, 0:cfg.num_features]
@@ -98,19 +95,25 @@ class Seg2Tunnel(Dataset):
             new_raw_pc[:, -1] = raw_pc[:, -1]
             raw_pc = new_raw_pc
         
-        kd_tree_file = self.path + '/' + station + '_KDTree.pkl'
-        with open(kd_tree_file, 'rb') as f:
-            search_tree = pickle.load(f)
-        dist, neigh_idx = search_tree.query([centre[0:3]], k=cfg.num_points)
-        dist = dist[0]
-        neigh_idx = neigh_idx[0]
-        delta = np.square(1 - dist / np.max(dist))
-        self.possibility[station][neigh_idx] += delta
+        if cfg.flag_pipe == 'crop':
+            index_min = np.argmin(self.possibility[station])
+            centre = raw_pc[index_min, :]
+            kd_tree_file = self.path + '/' + station + '_KDTree.pkl'
+            with open(kd_tree_file, 'rb') as f:
+                search_tree = pickle.load(f)
+            dist, neigh_idx = search_tree.query([centre[0:3]], k=cfg.num_points)
+            dist = dist[0]
+            neigh_idx = neigh_idx[0]
+            delta = np.square(1 - dist / np.max(dist))
+            self.possibility[station][neigh_idx] += delta
+        elif cfg.flag_pipe == 'sample_random':
+            neigh_idx = np.argsort(self.possibility[station])[0:cfg.num_points]
+            self.possibility[station][neigh_idx] += np.random.rand(cfg.num_points)
         
         raw_pc = raw_pc[neigh_idx, :]
         
         if self.mode == 'training':
-            raw_pc = rotate(raw_pc)
+            raw_pc = rotate_random_2d(raw_pc)
             np.random.shuffle(raw_pc)
         if self.mode == 'validation':
             np.random.shuffle(raw_pc)

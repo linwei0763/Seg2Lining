@@ -34,23 +34,32 @@ def grid_sample(points, voxel_size):
 def norm_intensity(intensity):
     
     bottom, up = np.percentile(intensity, 1), np.percentile(intensity, 99)
-    intensity[intensity < bottom] = bottom
-    intensity[intensity > up] = up
-    intensity -= bottom
-    intensity = intensity / (up - bottom)
+    if bottom != up:
+        intensity[intensity < bottom] = bottom
+        intensity[intensity > up] = up
+        intensity -= bottom
+        intensity = intensity / (up - bottom)
     
     return intensity
 
 
-def prepare(voxel_size):
+def prepare():
+    
+    voxel_size = cfg.voxel_size
     
     input_path = cfg.data_path
     files = os.listdir(input_path)
     output_path = cfg.data_path + '_' + str(voxel_size)
-    
+        
     stations = {}
+    
     for file in files:
-        station = file.rsplit('-', 1)[0]
+        
+        if cfg.flag_prep == 'ring-wise':
+            station = file.rsplit('-', 1)[0]
+        elif cfg.flag_prep == 'scene-wise':
+            station = file.rsplit('.', 1)[0]
+            
         if station not in cfg.training_stations and station not in cfg.test_stations:
             continue
         if station not in stations.keys():
@@ -85,5 +94,4 @@ def prepare(voxel_size):
 
 if __name__ == '__main__':
     
-    voxel_size = cfg.voxel_size
-    prepare(voxel_size)
+    prepare()
