@@ -107,7 +107,7 @@ class Tester:
                 for i in range(len(test_idx)):
                     results[station][test_idx[i]].append(preds[i])
         
-        str_fmt = '%.8f ' * cfg.num_features + '%d ' * 2 + '%.8f'
+        str_fmt = '%.8f ' * cfg.num_raw_features + '%d ' * 2 + '%.8f'
         
         for station in cfg.test_stations:
             for i in range(len(results[station])):
