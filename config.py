@@ -55,7 +55,7 @@ class Config:
     
     if subset == 'seg2tunnel':
         flag_prep = 'ring-wise'
-        flag_pipe = 'crop'
+        flag_pipe = 'sphere_crop'
         num_raw_features = 4
         num_classes = 7
         training_stations = ['1-1', '1-2', '1-3', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11', '1-13', '1-14', '1-16', '1-17', '2-1', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-11', '2-12', '2-13']

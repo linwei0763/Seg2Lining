@@ -95,7 +95,7 @@ class Seg2Tunnel(Dataset):
             new_raw_pc[:, -1] = raw_pc[:, -1]
             raw_pc = new_raw_pc
         
-        if cfg.flag_pipe == 'crop':
+        if cfg.flag_pipe == 'sphere_crop':
             index_min = np.argmin(self.possibility[station])
             centre = raw_pc[index_min, :]
             kd_tree_file = self.path + '/' + station + '_KDTree.pkl'
