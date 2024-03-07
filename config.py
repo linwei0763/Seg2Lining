@@ -120,13 +120,13 @@ class Config:
     --------RFA--------
     '''
     
-    rfa = False
+    # rfa = False
     
     '''best'''
-    # rfa = 'lin_v1'
-    # rfa_param = 1
+    rfa = 'lin_v1'
+    rfa_param = 1
     '''best'''
-    # rfa_pooling = 'max'
+    rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
     # rfa = 'lin_v2'
@@ -190,7 +190,6 @@ class Config:
     if enc == 'ohe':
         
         flag_ohe2se = False
-        
         '''best'''
         # flag_ohe2se = True
         
