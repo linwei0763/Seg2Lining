@@ -1,3 +1,5 @@
+# This repository includes LiningNet and serves as a codebase of several plug-and-play modules.
+
 # install
 
 conda create -n seg2lining python=3.8
