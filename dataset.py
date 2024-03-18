@@ -90,8 +90,8 @@ class Seg2Tunnel(Dataset):
         
         if cfg.rfa:
             new_raw_pc = np.zeros((raw_pc.shape[0], raw_pc.shape[1] + 1))
-            new_raw_pc[:, 0:cfg.num_features] = raw_pc[:, 0:cfg.num_features]
-            new_raw_pc[:, cfg.num_features] = self.axis_ds[station][:]
+            new_raw_pc[:, 0:cfg.num_raw_features] = raw_pc[:, 0:cfg.num_raw_features]
+            new_raw_pc[:, cfg.num_raw_features] = self.axis_ds[station][:]
             new_raw_pc[:, -1] = raw_pc[:, -1]
             raw_pc = new_raw_pc
         
@@ -129,7 +129,7 @@ class Seg2Tunnel(Dataset):
         
         dataset = {}
         
-        dataset['features'] = torch.from_numpy(pc[:, 0:cfg.num_features]).transpose(0, 1).float()
+        dataset['features'] = torch.from_numpy(pc[:, 0:cfg.num_raw_features]).transpose(0, 1).float()
         dataset['labels'] = []
         dataset['xyz'] = []
         dataset['neigh_idx'] = []
@@ -145,7 +145,7 @@ class Seg2Tunnel(Dataset):
         
         if cfg.rfa:
             dataset['axis_neigh_idx'] = []
-            axis_d = pc[:, cfg.num_features]
+            axis_d = pc[:, cfg.num_raw_features]
         
         for i in range(cfg.num_layers):
             

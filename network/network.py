@@ -13,7 +13,7 @@ class Network(nn.Module):
         self.config = config
 
         d_in = 8
-        self.fc0 = pt_utils.Conv1d(self.config.num_features, d_in, kernel_size=1, bn=True)
+        self.fc0 = pt_utils.Conv1d(self.config.num_raw_features, d_in, kernel_size=1, bn=True)
         
         '''
         --------LFA--------
