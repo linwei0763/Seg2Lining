@@ -7,6 +7,7 @@ cd Seg2Lining
 pip install -r requirements.txt  
 pip install open3d  
 pip install thop
+conda install openpyxl
 # usage  
 (HPC)sintr -t 1:0:0 --exclusive -A SHEIL-SL3-GPU -p ampere  
 conda activate seg2lining  
