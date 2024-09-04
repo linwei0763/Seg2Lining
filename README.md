@@ -20,13 +20,16 @@ conda install openpyxl
 
 # usage
 
-(HPC)sintr -t 1:0:0 --exclusive -A SHEIL-SL3-GPU -p ampere
+(HPC)  
+sintr -t 1:0:0 --exclusive -A SHEIL-SL3-GPU -p ampere
 
 conda activate seg2lining
 
-(HPC)module load cuda/11.8
+(HPC)  
+module load cuda/11.8
 
-(HPC)module load cudnn/8.9_cuda-11.8
+(HPC)  
+module load cudnn/8.9_cuda-11.8
 
 cd Seg2Lining
 
