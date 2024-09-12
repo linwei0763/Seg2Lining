@@ -9,38 +9,38 @@ class Config:
     Keep this part uncommented when using HPC.
     '''
     
-    num_points = 204800
+    # num_points = 204800
     
-    training_num = 3000
-    validation_num = 600
-    test_num = 1000
-    demo_num = 1
+    # training_num = 3000
+    # validation_num = 600
+    # test_num = 1000
+    # demo_num = 1
     
-    training_batch_size = 8
-    validation_batch_size = 1
-    test_batch_size = 1
-    demo_batch_size = 1
+    # training_batch_size = 8
+    # validation_batch_size = 1
+    # test_batch_size = 1
+    # demo_batch_size = 1
     
-    num_workers = 32
+    # num_workers = 32
     
     '''
     --------PC--------
     Keep this part uncommented when using PC.
     '''
     
-    # num_points = 102400
+    num_points = 102400
     
-    # training_num = 30
-    # validation_num = 6
-    # test_num = 1000
-    # demo_num = 1
+    training_num = 30
+    validation_num = 6
+    test_num = 1000
+    demo_num = 1
     
-    # training_batch_size = 1
-    # validation_batch_size = 1
-    # test_batch_size = 1
-    # demo_batch_size = 1
+    training_batch_size = 1
+    validation_batch_size = 1
+    test_batch_size = 1
+    demo_batch_size = 1
     
-    # num_workers = 16
+    num_workers = 16
     
     '''
     --------DATASET--------
@@ -51,7 +51,7 @@ class Config:
     
     data_path = '../Seg2Tunnel/' + subset    
     
-    voxel_size = 0
+    voxel_size = 0.04
     
     if subset == 'seg2tunnel':
         flag_prep = 'ring-wise'
