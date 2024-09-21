@@ -48,10 +48,11 @@ class Config:
     
     subset = 'seg2tunnel'
     # subset = 'seg2tunnel_dublin'
+    # subset = 'seg2tunnel_wuxi'
     
     data_path = '../Seg2Tunnel/' + subset    
     
-    voxel_size = 0
+    voxel_size = 0.04
     
     if subset == 'seg2tunnel':
         flag_prep = 'ring-wise'
@@ -71,6 +72,15 @@ class Config:
         validation_stations = ['1-17', '1-18', '1-19', '1-20']
         test_stations = ['1-17', '1-18', '1-19', '1-20', '2-1']
         demo_stations = ['1-17']
+    elif subset == 'seg2tunnel_wuxi':
+        flag_prep = 'scene-wise'
+        flag_pipe = 'sample_random'
+        num_raw_features = 4
+        num_classes = 2
+        training_stations = ['0-1', '0-2', '0-3', '0-4', '0-5', '0-6', '0-7', '0-8', '0-9', '0-10', '0-11', '0-12', '0-13', '0-14', '0-15', '0-16']
+        validation_stations = ['0-17', '0-18', '0-19', '0-20']
+        test_stations = ['0-17', '0-18', '0-19', '0-20', '1-4']
+        demo_stations = ['0-17']
     
     '''
     --------NETWORK--------
@@ -120,13 +130,13 @@ class Config:
     --------RFA--------
     '''
     
-    # rfa = False
+    rfa = False
     
     '''best'''
-    rfa = 'lin_v1'
-    rfa_param = 1
+    # rfa = 'lin_v1'
+    # rfa_param = 1
     '''best'''
-    rfa_pooling = 'max'
+    # rfa_pooling = 'max'
     # rfa_pooling = 'mean'
     
     # rfa = 'lin_v2'
@@ -211,7 +221,6 @@ class Config:
         weight_ml = [1] * num_layers
         
     if enc == 'ohe':
-        
         loss_func = 'cel'
         if loss_func == 'cel':
             weight_cel = np.ones(num_classes)
@@ -226,8 +235,3 @@ class Config:
     if flag_vis:
         vis_layers = [0]
         vis_channels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-    
-    
-    
-    
-    
