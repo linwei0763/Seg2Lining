@@ -1,3 +1,4 @@
+from concurrent.futures import ProcessPoolExecutor
 import logging
 import numpy as np
 import os
@@ -18,6 +19,13 @@ torch.backends.cudnn.benchmark = True
 
 def worker_init_fn(worker_id):
     np.random.seed(np.random.get_state()[1][0] + worker_id)
+
+
+def process_results(result):
+    pred = max(result, key=result.count)
+    count = result.count(pred)
+    frequency = float(count) / len(result)
+    return [pred, frequency]
 
 
 class Tester:
@@ -110,11 +118,8 @@ class Tester:
         str_fmt = '%.8f ' * cfg.num_raw_features + '%d ' * 2 + '%.8f'
         
         for station in cfg.test_stations:
-            for i in range(len(results[station])):
-                pred = max(results[station][i], key=results[station][i].count)
-                count = results[station][i].count(pred)
-                frequency = float(count) / len(results[station][i])
-                results[station][i] = [pred, frequency]
+            with ProcessPoolExecutor() as executor:
+                results[station] = list(executor.map(process_results, results[station]))
             preds_frequencies = np.asarray(results[station])
             result = np.hstack((results[station + 'pc'], preds_frequencies))
             np.savetxt(
