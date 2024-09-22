@@ -52,7 +52,7 @@ class Tester:
         CHECKPOINT_PATH = cfg.checkpoint_path
         if CHECKPOINT_PATH is not None and os.path.isfile(CHECKPOINT_PATH):
             self.logger.info('Use the existing model!')
-            checkpoint = torch.load(CHECKPOINT_PATH)
+            checkpoint = torch.load(CHECKPOINT_PATH, weights_only=False)
             self.net.load_state_dict(checkpoint['model_state_dict'])
         else:
             self.logger.info('There is no existing model!')
