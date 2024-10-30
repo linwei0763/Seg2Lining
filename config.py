@@ -11,25 +11,25 @@ class Config:
     Keep this part uncommented when using HPC.
     '''
     
-    num_points = 8192
+    # num_points = 204800
     
-    training_num = 3000
-    validation_num = 600
-    test_num = 20
-    demo_num = 1
+    # training_num = 3000
+    # validation_num = 600
+    # test_num = 1000
+    # demo_num = 1
     
-    training_batch_size = 8
-    validation_batch_size = 1
-    test_batch_size = 1
-    demo_batch_size = 1
+    # training_batch_size = 8
+    # validation_batch_size = 1
+    # test_batch_size = 1
+    # demo_batch_size = 1
     
-    num_workers = 32
+    # num_workers = 32
     
     '''
     --------PC--------
     Keep this part uncommented when using PC.
     '''
-    
+
     # num_points = 102400
     
     # training_num = 30
@@ -43,6 +43,24 @@ class Config:
     # demo_batch_size = 1
     
     # num_workers = 16
+    
+    '''
+    --------Ring--------
+    '''
+    
+    num_points = 12288
+    
+    training_num = 3000
+    validation_num = 600
+    test_num = 500
+    demo_num = 1
+    
+    training_batch_size = 8
+    validation_batch_size = 1
+    test_batch_size = 1
+    demo_batch_size = 1
+    
+    num_workers = 16
     
     '''
     --------DATASET--------
@@ -250,7 +268,7 @@ class Config:
         flag_ohe2se = True
         
         if flag_ohe2se:
-            weight_ohe2se = 0.1
+            weight_ohe2se = 0
 
     if (enc == 'ohe' and flag_ohe2se) or (enc == 'se'):
         cus_enc = [[1, 0, 0]]

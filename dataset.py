@@ -56,8 +56,8 @@ class Seg2Tunnel(Dataset):
                 self.list_dataset.append(stations[i%len(stations)])
         if self.mode == 'test':
             stations = cfg.test_stations
-            for station in stations:
-                for i in range(cfg.test_num):
+            for i in range(cfg.test_num):
+                for station in stations:
                     self.list_dataset.append(station)
         if self.mode == 'demo':
             stations = cfg.demo_stations
@@ -251,12 +251,10 @@ class Seg2Tunnel(Dataset):
 --------VISUALISATION--------
 '''
 def worker_init_fn(worker_id):
+    np.random.seed(np.random.get_state()[1][0] + worker_id)
     
-    np.random.seed(np.random.get_state()[1][0] + worker_id)    
-
     
 if __name__ == '__main__':
-
     dataset = Seg2Tunnel('test')
-    feature = np.asarray(dataset[4]['features'].transpose(0, 1))
+    feature = np.asarray(dataset[0]['features'].transpose(0, 1))
     np.savetxt('dataset.txt', feature, delimiter=' ')

@@ -47,13 +47,15 @@ class Tester:
             os.mkdir(cfg.result_path)
         
         test_set = Seg2Tunnel('test')
-        self.test_loader = DataLoader(test_set, 
-                                      batch_size=cfg.test_batch_size, 
-                                      shuffle=False, 
-                                      num_workers=cfg.num_workers, 
-                                      collate_fn=test_set.collate_fn, 
-                                      worker_init_fn=worker_init_fn, 
-                                      pin_memory=True)
+        self.test_loader = DataLoader(
+            test_set, 
+            batch_size=cfg.test_batch_size, 
+            shuffle=False, 
+            num_workers=cfg.num_workers, 
+            collate_fn=test_set.collate_fn, 
+            worker_init_fn=worker_init_fn, 
+            pin_memory=True
+            )
         
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.net = Network(cfg)
@@ -106,7 +108,7 @@ class Tester:
                 loss, end_points = compute_loss(end_points)
                 end_points = iou_calc.add_data(end_points)
                 
-                station = cfg.test_stations[int(batch_idx / cfg.test_num)]
+                station = cfg.test_stations[batch_idx % len(cfg.test_stations)]
                 test_idx = end_points['test_idx']
                 test_idx = np.asarray(test_idx.cpu(), dtype=int)
                 preds = end_points['preds']
