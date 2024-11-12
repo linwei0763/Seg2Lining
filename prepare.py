@@ -60,7 +60,7 @@ def prepare():
         elif cfg.flag_prep == 'scene-wise':
             station = file.rsplit('.', 1)[0]
             
-        if station not in cfg.training_stations and station not in cfg.test_stations:
+        if (station not in cfg.training_stations) and (station not in cfg.test_stations) and (station not in cfg.test_stations):
             continue
         if station not in stations.keys():
             stations[station] = []
