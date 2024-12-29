@@ -66,6 +66,8 @@ def prepare():
             stations[station] = []
         stations[station].append(file)
     
+    mean_xyz = {}
+    
     for station in stations.keys():
         pc = []
         for i in range(len(stations[station])):
@@ -79,7 +81,8 @@ def prepare():
         
         pc[:, 3] = norm_intensity(pc[:, 3])
         
-        pc[:, 0:3] -= np.mean(pc[:, 0:3], axis=0)
+        mean_xyz[station] = np.mean(pc[:, 0:3], axis=0)
+        pc[:, 0:3] -= mean_xyz[station]
         np.random.shuffle(pc)
         
         search_tree = KDTree(pc[:, 0:3])
@@ -91,6 +94,10 @@ def prepare():
         with open(kd_tree_file, 'wb') as f:
             pickle.dump(search_tree, f)
     
+    mean_xyz_file = os.path.join(output_path, 'mean_xyz.pkl')
+    with open(mean_xyz_file, 'wb') as f:
+        pickle.dump(mean_xyz, f)
+
 
 if __name__ == '__main__':
     

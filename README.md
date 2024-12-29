@@ -27,6 +27,9 @@ cd Seg2Lining
 python prepare.py
 python train.py
 python test.py
+
+python restore.py
+
 python test_visualise.py
 python demo.py
 ```
